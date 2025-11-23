@@ -7,7 +7,7 @@
 //   updatedAt: number; // timestamp of last update
 // }
 
-import { IsNotEmpty, IsNumber, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsUUID } from 'class-validator';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -18,19 +18,10 @@ export class CreateUserDto {
 }
 
 export class UserResponseDto {
-  @IsUUID()
   id: string;
-
-  @IsNotEmpty()
   login: string;
-
-  @IsNumber()
   version: number;
-
-  @IsNumber()
   createAt: number;
-
-  @IsNumber()
   updateAt: number;
 }
 
