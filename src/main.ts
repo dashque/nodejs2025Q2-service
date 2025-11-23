@@ -10,7 +10,6 @@ dotenv.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
-
   const swaggerDocument = yaml.load('./doc/api.yaml');
   SwaggerModule.setup('api', app, swaggerDocument);
   await app.listen(process.env.PORT);

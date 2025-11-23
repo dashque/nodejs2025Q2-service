@@ -1,5 +1,5 @@
 import {
-  BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -17,8 +17,8 @@ export class UsersService {
       id: user.id,
       login: user.login,
       version: user.version,
-      createAt: user.createAt,
-      updateAt: user.updateAt,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     };
   }
 
@@ -48,12 +48,12 @@ export class UsersService {
     }
 
     if (user.password !== updateUserDto.oldPassword) {
-      throw new BadRequestException('Old password is wrong');
+      throw new ForbiddenException('Old password is wrong');
     }
 
     user.password = updateUserDto.newPassword;
     user.version += 1;
-    user.updateAt = Date.now();
+    user.updatedAt = Date.now();
 
     this.users.set(id, user);
     return this.mapToResponseDto(user);
