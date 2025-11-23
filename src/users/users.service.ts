@@ -1,8 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { UserResponseDto } from './dto/user.dto';
+import { UserResponseDto } from './dto/user-response.dto';
 
 @Injectable()
 export class UsersService {
@@ -30,8 +34,9 @@ export class UsersService {
 
   findOne(id: string) {
     const user = this.users.get(id);
+
     if (!user) {
-      throw new Error('User not found');
+      throw new NotFoundException('User not found');
     }
     return this.mapToResponseDto(user);
   }
@@ -39,11 +44,11 @@ export class UsersService {
   update(id: string, updateUserDto: UpdateUserDto): UserResponseDto {
     const user = this.users.get(id);
     if (!user) {
-      throw new Error('User not found');
+      throw new NotFoundException('User not found');
     }
 
     if (user.password !== updateUserDto.oldPassword) {
-      throw new Error('Old password is wrong');
+      throw new BadRequestException('Old password is wrong');
     }
 
     user.password = updateUserDto.newPassword;
@@ -57,11 +62,9 @@ export class UsersService {
   remove(id: string) {
     const user = this.users.get(id);
     if (!user) {
-      throw new Error('User not found');
+      throw new NotFoundException('User not found');
     }
 
     this.users.delete(id);
-
-    return `This action removes a #${user.id} user`;
   }
 }
