@@ -5,16 +5,23 @@
 //   artistId: string | null; // refers to Artist
 // }
 
-import { IsNotEmpty, IsNumber, IsOptional, IsUUID } from 'class-validator';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsUUID,
+  ValidateIf,
+} from 'class-validator';
 
 export class CreateAlbumDto {
   @IsNotEmpty()
   name: string;
 
-  @IsNumber()
+  @IsInt()
   year: number;
 
   @IsOptional()
+  @ValidateIf((_, v) => v !== null)
   @IsUUID()
   artistId: string | null;
 }
@@ -30,10 +37,11 @@ export class UpdateAlbumDto {
   @IsNotEmpty()
   name: string;
 
-  @IsNumber()
+  @IsInt()
   year: number;
 
   @IsOptional()
+  @ValidateIf((_, v) => v !== null)
   @IsUUID()
   artistId: string | null;
 }

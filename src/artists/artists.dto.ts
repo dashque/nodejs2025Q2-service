@@ -4,7 +4,7 @@
 //   grammy: boolean;
 // }
 
-import { IsNotEmpty, IsBoolean, IsUUID } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsUUID } from 'class-validator';
 
 export class CreateArtistDto {
   @IsNotEmpty()

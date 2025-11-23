@@ -6,21 +6,29 @@
 //   duration: number; // integer number
 // }
 
-import { IsNotEmpty, IsNumber, IsOptional, IsUUID } from 'class-validator';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsUUID,
+  ValidateIf,
+} from 'class-validator';
 
 export class CreateTrackDto {
   @IsNotEmpty()
   name: string;
 
   @IsOptional()
+  @ValidateIf((_, v) => v !== null)
   @IsUUID()
   artistId: string | null;
 
   @IsOptional()
+  @ValidateIf((_, v) => v !== null)
   @IsUUID()
   albumId: string | null;
 
-  @IsNumber()
+  @IsInt()
   duration: number;
 }
 
@@ -37,14 +45,16 @@ export class UpdateTrackDto {
   name: string;
 
   @IsOptional()
+  @ValidateIf((_, v) => v !== null)
   @IsUUID()
   artistId: string | null;
 
   @IsOptional()
+  @ValidateIf((_, v) => v !== null)
   @IsUUID()
   albumId: string | null;
 
-  @IsNumber()
+  @IsInt()
   duration: number;
 }
 
