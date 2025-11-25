@@ -1,13 +1,13 @@
-//interface Artist {
-//   id: string; // uuid v4
-//   name: string;
-//   grammy: boolean;
-// }
+import { v4 as uuid4 } from 'uuid';
 
 export class Artist {
   id: string;
   name: string;
   grammy: boolean;
 
-  constructor() {}
+  constructor(name: string, grammy: boolean) {
+    this.id = uuid4();
+    this.name = name;
+    this.grammy = grammy;
+  }
 }

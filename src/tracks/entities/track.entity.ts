@@ -1,10 +1,4 @@
-//interface Track {
-//   id: string; // uuid v4
-//   name: string;
-//   artistId: string | null; // refers to Artist
-//   albumId: string | null; // refers to Album
-//   duration: number; // integer number
-// }
+import { v4 as uuid4 } from 'uuid';
 
 export class Track {
   id: string;
@@ -13,5 +7,16 @@ export class Track {
   albumId: string | null;
   duration: number;
 
-  constructor() {}
+  constructor(
+    name: string,
+    artistId: string,
+    albumId: string,
+    duration: number,
+  ) {
+    this.id = uuid4();
+    this.name = name;
+    this.artistId = artistId;
+    this.albumId = albumId;
+    this.duration = duration;
+  }
 }
