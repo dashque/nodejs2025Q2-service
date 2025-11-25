@@ -7,16 +7,11 @@ export class Track {
   albumId: string | null;
   duration: number;
 
-  constructor(
-    name: string,
-    artistId: string,
-    albumId: string,
-    duration: number,
-  ) {
+  constructor(data: Omit<Track, 'id'>) {
     this.id = uuid4();
-    this.name = name;
-    this.artistId = artistId;
-    this.albumId = albumId;
-    this.duration = duration;
+    this.name = data.name;
+    this.artistId = data.artistId;
+    this.albumId = data.albumId;
+    this.duration = data.duration;
   }
 }

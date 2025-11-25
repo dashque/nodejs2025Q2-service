@@ -1,12 +1,9 @@
-import {
-  ForbiddenException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UserResponseDto } from './dto/user-response.dto';
+import { checkExistenceOrThrow } from '../utils/utils';
 
 @Injectable()
 export class UsersService {
@@ -33,19 +30,20 @@ export class UsersService {
   }
 
   findOne(id: string) {
-    const user = this.users.get(id);
-
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
+    const user = checkExistenceOrThrow({
+      id,
+      map: this.users,
+      name: 'User',
+    });
     return this.mapToResponseDto(user);
   }
 
   update(id: string, updateUserDto: UpdateUserDto): UserResponseDto {
-    const user = this.users.get(id);
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
+    const user = checkExistenceOrThrow({
+      id,
+      map: this.users,
+      name: 'User',
+    });
 
     if (user.password !== updateUserDto.oldPassword) {
       throw new ForbiddenException('Old password is wrong');
@@ -60,10 +58,11 @@ export class UsersService {
   }
 
   remove(id: string) {
-    const user = this.users.get(id);
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
+    checkExistenceOrThrow({
+      id,
+      map: this.users,
+      name: 'User',
+    });
 
     this.users.delete(id);
   }
