@@ -6,7 +6,7 @@ export class Album {
   year: number;
   artistId: string | null;
 
-  constructor(name: string, artistId: string, year: number) {
+  constructor({ name, artistId, year }: Omit<Album, 'id'>) {
     this.id = uuid4();
     this.name = name;
     this.year = year;
