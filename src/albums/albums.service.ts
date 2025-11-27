@@ -4,6 +4,7 @@ import { UpdateAlbumDto } from './dto/update-album.dto';
 import { Album } from './entities/album.entity';
 import { AlbumResponseDto } from './dto/albums.dto';
 import { checkExistenceOrThrow } from '../utils/utils';
+import { TracksService } from '../tracks/tracks.service';
 
 @Injectable()
 export class AlbumsService {
@@ -17,6 +18,8 @@ export class AlbumsService {
       artistId: album.artistId ?? null,
     };
   }
+
+  constructor(private readonly tracksService: TracksService) {}
 
   create(createAlbumDto: CreateAlbumDto) {
     const newAlbum = new Album({
@@ -63,6 +66,19 @@ export class AlbumsService {
       map: this.albums,
       name: 'Album',
     });
+
+    const rawTracks = this.tracksService.getRawTracks();
+    rawTracks.forEach((track, trackId) => {
+      if (track.albumId === id) {
+        this.tracksService.update(trackId, {
+          name: track.name,
+          artistId: track.artistId,
+          albumId: null,
+          duration: track.duration,
+        });
+      }
+    });
+
     this.albums.delete(id);
   }
 }
