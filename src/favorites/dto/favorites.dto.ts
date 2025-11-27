@@ -1,8 +1,3 @@
-// interface Favorites {
-//   artists: string[]; // favorite artists ids
-//   albums: string[]; // favorite albums ids
-//   tracks: string[]; // favorite tracks ids
-// }
 import { ArtistResponseDto } from '../../artists/dto/artists.dto';
 import { AlbumResponseDto } from '../../albums/dto/albums.dto';
 import { TrackResponseDto } from '../../tracks/dto/track.dto';
