@@ -94,4 +94,8 @@ export class ArtistsService {
 
     this.artists.delete(id);
   }
+
+  getRawArtists() {
+    return this.artists;
+  }
 }
