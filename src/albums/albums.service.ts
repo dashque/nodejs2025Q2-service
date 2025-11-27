@@ -46,7 +46,7 @@ export class AlbumsService {
     const album = checkExistenceOrThrow({
       id,
       map: this.albums,
-      name: 'Track',
+      name: 'Album',
     });
 
     album.name = updateAlbumDto.name;
