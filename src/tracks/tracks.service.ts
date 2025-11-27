@@ -4,10 +4,13 @@ import { UpdateTrackDto } from './dto/update-track.dto';
 import { Track } from './entities/track.entity';
 import { TrackResponseDto } from './dto/track.dto';
 import { checkExistenceOrThrow } from '../utils/utils';
+import { FavoritesService } from '../favorites/favorites.service';
 
 @Injectable()
 export class TracksService {
   private readonly tracks = new Map<string, Track>();
+
+  constructor(private readonly favoritesService: FavoritesService) {}
 
   private mapToResponseDto(track: Track): TrackResponseDto {
     return {
@@ -66,6 +69,12 @@ export class TracksService {
     });
 
     this.tracks.delete(id);
+
+    try {
+      this.favoritesService.removeTrack(id);
+    } catch {
+      console.log('Track not found in favorites');
+    }
   }
 
   getRawTracks() {

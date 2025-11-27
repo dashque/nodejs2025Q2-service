@@ -6,6 +6,7 @@ import { ArtistResponseDto } from './dto/artists.dto';
 import { checkExistenceOrThrow } from '../utils/utils';
 import { TracksService } from '../tracks/tracks.service';
 import { AlbumsService } from '../albums/albums.service';
+import { FavoritesService } from '../favorites/favorites.service';
 
 @Injectable()
 export class ArtistsService {
@@ -22,6 +23,7 @@ export class ArtistsService {
   constructor(
     private readonly tracksService: TracksService,
     private readonly albumsService: AlbumsService,
+    private readonly favoritesService: FavoritesService,
   ) {}
 
   create(createArtistDto: CreateArtistDto) {
@@ -93,6 +95,12 @@ export class ArtistsService {
     });
 
     this.artists.delete(id);
+
+    try {
+      this.favoritesService.removeArtist(id);
+    } catch {
+      console.log('Artist not found in favorites');
+    }
   }
 
   getRawArtists() {

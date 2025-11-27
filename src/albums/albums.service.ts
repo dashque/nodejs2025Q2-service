@@ -5,6 +5,7 @@ import { Album } from './entities/album.entity';
 import { AlbumResponseDto } from './dto/albums.dto';
 import { checkExistenceOrThrow } from '../utils/utils';
 import { TracksService } from '../tracks/tracks.service';
+import { FavoritesService } from '../favorites/favorites.service';
 
 @Injectable()
 export class AlbumsService {
@@ -19,7 +20,10 @@ export class AlbumsService {
     };
   }
 
-  constructor(private readonly tracksService: TracksService) {}
+  constructor(
+    private readonly tracksService: TracksService,
+    private readonly favoritesService: FavoritesService,
+  ) {}
 
   create(createAlbumDto: CreateAlbumDto) {
     const newAlbum = new Album({
@@ -80,6 +84,12 @@ export class AlbumsService {
     });
 
     this.albums.delete(id);
+
+    try {
+      this.favoritesService.removeAlbum(id);
+    } catch {
+      console.log('Album not found in favorites');
+    }
   }
 
   getRawAlbums() {
