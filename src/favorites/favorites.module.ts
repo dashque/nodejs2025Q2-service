@@ -9,5 +9,6 @@ import { TracksModule } from '../tracks/tracks.module';
   controllers: [FavoritesController],
   providers: [FavoritesService],
   imports: [TracksModule, ArtistsModule, AlbumsModule],
+  exports: [FavoritesService],
 })
 export class FavoritesModule {}

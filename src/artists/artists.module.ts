@@ -3,11 +3,12 @@ import { ArtistsService } from './artists.service';
 import { ArtistsController } from './artists.controller';
 import { TracksModule } from '../tracks/tracks.module';
 import { AlbumsModule } from '../albums/albums.module';
+import { FavoritesModule } from '../favorites/favorites.module';
 
 @Module({
   controllers: [ArtistsController],
   providers: [ArtistsService],
-  imports: [TracksModule, AlbumsModule],
+  imports: [TracksModule, AlbumsModule, FavoritesModule],
   exports: [ArtistsService],
 })
 export class ArtistsModule {}
