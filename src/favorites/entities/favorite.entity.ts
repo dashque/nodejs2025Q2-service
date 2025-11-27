@@ -1,11 +1,11 @@
-import { ArtistResponseDto } from '../../artists/dto/artists.dto';
-import { AlbumResponseDto } from '../../albums/dto/albums.dto';
-import { TrackResponseDto } from '../../tracks/dto/track.dto';
+import { Artist } from '../../artists/entities/artist.entity';
+import { Album } from '../../albums/entities/album.entity';
+import { Track } from '../../tracks/entities/track.entity';
 
 export class Favorite {
-  artists: ArtistResponseDto[];
-  albums: AlbumResponseDto[];
-  tracks: TrackResponseDto[];
+  artists: Artist[];
+  albums: Album[];
+  tracks: Track[];
 
   constructor() {
     this.artists = [];
