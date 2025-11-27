@@ -81,4 +81,8 @@ export class AlbumsService {
 
     this.albums.delete(id);
   }
+
+  getRawAlbums() {
+    return this.albums;
+  }
 }

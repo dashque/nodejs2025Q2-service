@@ -68,7 +68,7 @@ export class TracksService {
     this.tracks.delete(id);
   }
 
-  getRawTracks(): Map<string, Track> {
+  getRawTracks() {
     return this.tracks;
   }
 }

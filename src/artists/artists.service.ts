@@ -4,6 +4,8 @@ import { UpdateArtistDto } from './dto/update-artist.dto';
 import { Artist } from './entities/artist.entity';
 import { ArtistResponseDto } from './dto/artists.dto';
 import { checkExistenceOrThrow } from '../utils/utils';
+import { TracksService } from '../tracks/tracks.service';
+import { AlbumsService } from '../albums/albums.service';
 
 @Injectable()
 export class ArtistsService {
@@ -16,6 +18,11 @@ export class ArtistsService {
       grammy: artist.grammy,
     };
   }
+
+  constructor(
+    private readonly tracksService: TracksService,
+    private readonly albumsService: AlbumsService,
+  ) {}
 
   create(createArtistDto: CreateArtistDto) {
     const newArtist = new Artist(createArtistDto.name, createArtistDto.grammy);
@@ -61,6 +68,30 @@ export class ArtistsService {
       map: this.artists,
       name: 'Artist',
     });
+
+    const rawAlbums = this.albumsService.getRawAlbums();
+    rawAlbums.forEach((album, albumId) => {
+      if (album.artistId === id) {
+        this.albumsService.update(albumId, {
+          name: album.name,
+          artistId: null,
+          year: album.year,
+        });
+      }
+    });
+
+    const rawTracks = this.tracksService.getRawTracks();
+    rawTracks.forEach((track, trackId) => {
+      if (track.artistId === id) {
+        this.tracksService.update(trackId, {
+          name: track.name,
+          artistId: null,
+          albumId: track.albumId,
+          duration: track.duration,
+        });
+      }
+    });
+
     this.artists.delete(id);
   }
 }
