@@ -1,72 +1,121 @@
 # Home Library Service
 
-## Prerequisites
+A NestJS-based REST API for managing a music library with artists, albums, tracks, and favorites.
 
-- Git - [Download & Install Git](https://git-scm.com/downloads).
-- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
+## Installation
 
-## Downloading
+1. **Clone the repository**
+   ```bash
+   git clone git@github.com:dashque/nodejs2025Q2-service.git
+   git checkout dev
+   cd nodejs2025Q2-service
+   ```
 
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   ```
+
+## Running the Application
+
+### Development Mode
+```bash
+npm run start:dev
 ```
-git clone {repository URL}
+Starts the server with hot reload on file changes.
+
+### Production Mode
+```bash
+npm run build
+npm run start:prod
 ```
 
-## Installing NPM modules
-
-```
-npm install
-```
-
-## Running application
-
-```
-npm start
+### Debug Mode
+```bash
+npm run start:debug
 ```
 
-After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
-For more information about OpenAPI/Swagger please visit https://swagger.io/.
+After starting, access the OpenAPI documentation at:
+**http://localhost:4000/doc/**
 
 ## Testing
 
-After application running open new terminal and enter:
+### Run All Tests
 
-To run all tests without authorization
-
-```
+```bash
+npm run start:dev
 npm run test
 ```
+Runs all e2e tests without authentication.
 
-To run only one of all test suites
-
-```
-npm run test -- <path to suite>
-```
-
-To run all test with authorization
-
-```
-npm run test:auth
+### Run Specific Test Suite
+```bash
+npm run test -- test/artists.e2e.spec.ts
 ```
 
-To run only specific test suite with authorization
-
+### Watch Mode
+```bash
+npm run test:watch
 ```
-npm run test:auth -- <path to suite>
-```
 
-### Auto-fix and format
+## Available Scripts
 
-```
+| Script | Description |
+|--------|-------------|
+| `npm start` | Start in production mode |
+| `npm run start:dev` | Start in development mode with watch |
+| `npm run start:debug` | Start in debug mode |
+| `npm run build` | Build the application |
+| `npm run test` | Run all tests |
+| `npm run test:auth` | Run tests with authentication |
+| `npm run test:refresh` | Run refresh token tests |
+| `npm run test:watch` | Run tests in watch mode |
+| `npm run test:cov` | Generate coverage report |
+| `npm run lint` | Run ESLint with auto-fix |
+| `npm run format` | Format code with Prettier |
+
+## API Endpoints
+
+The service provides REST endpoints for:
+- **Artists** - CRUD operations
+- **Albums** - CRUD operations with artist relationships
+- **Tracks** - CRUD operations with artist and album relationships
+- **Favorites** - Manage favorite artists, albums, and tracks
+- **Users** - User management
+
+## Development
+
+### Code Quality
+```bash
+# Lint and auto-fix issues
 npm run lint
-```
 
-```
+# Format code
 npm run format
 ```
 
-### Debugging in VSCode
+## Project Structure
 
-Press <kbd>F5</kbd> to debug.
+```
+src/
+├── artists/          # Artist module
+├── albums/           # Album module
+├── tracks/           # Track module
+├── favorites/        # Favorites module
+├── auth/             # Authentication module
+├── users/            # User module
+└── utils/            # Shared utilities
 
-For more information, visit: https://code.visualstudio.com/docs/editor/debugging
+test/                 # E2E tests
+├── auth/             # Auth tests
+├── artists.e2e.spec.ts
+├── albums.e2e.spec.ts
+├── tracks.e2e.spec.ts
+├── favorites.e2e.spec.ts
+└── refresh/          # Refresh token tests
+```
