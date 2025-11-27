@@ -92,7 +92,7 @@ export class FavoritesService {
     return addElementToFavs<Artist[], Artist>({
       id: artistId,
       data: favorites.artists,
-      name: 'artist',
+      name: 'artists',
       rawData: this.artistsService.getRawArtists(),
     });
   }
@@ -106,7 +106,7 @@ export class FavoritesService {
     return filterData<Favorite, Track>({
       id: trackId,
       data: favorites,
-      name: 'track',
+      name: 'tracks',
     });
   }
 
@@ -119,7 +119,7 @@ export class FavoritesService {
     return filterData<Favorite, Album>({
       id: albumId,
       data: favorites,
-      name: 'album',
+      name: 'albums',
     });
   }
 
@@ -132,7 +132,7 @@ export class FavoritesService {
     return filterData<Favorite, Artist>({
       id: artistId,
       data: favorites,
-      name: 'artist',
+      name: 'artists',
     });
   }
 }

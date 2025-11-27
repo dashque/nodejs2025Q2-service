@@ -71,8 +71,8 @@ export const filterData = <
 }) => {
   const initialLength = data[name].length;
   const filteredData = data[name].filter((elem: T) => elem.id !== id);
-  if (data[name].length === initialLength) {
-    throw new Error(`${name} not found in favorites`);
+  if (filteredData.length === initialLength) {
+    throw new NotFoundException(`${name} not found in favorites`);
   }
   data[name] = filteredData;
   return filteredData;
