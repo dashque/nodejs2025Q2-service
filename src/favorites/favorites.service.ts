@@ -98,7 +98,7 @@ export class FavoritesService {
       throw new Error('Favorites not found');
     }
 
-    return filterData<Track>({
+    return filterData<Favorite, Track>({
       id: trackId,
       data: favorites,
       name: 'track',
@@ -111,7 +111,7 @@ export class FavoritesService {
       throw new Error('Favorites not found');
     }
 
-    return filterData<Album>({
+    return filterData<Favorite, Album>({
       id: albumId,
       data: favorites,
       name: 'album',
@@ -124,7 +124,7 @@ export class FavoritesService {
       throw new Error('Favorites not found');
     }
 
-    return filterData<Artist>({
+    return filterData<Favorite, Artist>({
       id: artistId,
       data: favorites,
       name: 'artist',
