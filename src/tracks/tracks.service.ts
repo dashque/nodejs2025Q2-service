@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
 import { Track } from './entities/track.entity';
@@ -10,7 +10,10 @@ import { FavoritesService } from '../favorites/favorites.service';
 export class TracksService {
   private readonly tracks = new Map<string, Track>();
 
-  constructor(private readonly favoritesService: FavoritesService) {}
+  constructor(
+    @Inject(forwardRef(() => FavoritesService))
+    private readonly favoritesService: FavoritesService,
+  ) {}
 
   private mapToResponseDto(track: Track): TrackResponseDto {
     return {

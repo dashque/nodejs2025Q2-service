@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
 import { Artist } from './entities/artist.entity';
@@ -21,8 +21,13 @@ export class ArtistsService {
   }
 
   constructor(
+    @Inject(forwardRef(() => TracksService))
     private readonly tracksService: TracksService,
+
+    @Inject(forwardRef(() => AlbumsService))
     private readonly albumsService: AlbumsService,
+
+    @Inject(forwardRef(() => FavoritesService))
     private readonly favoritesService: FavoritesService,
   ) {}
 

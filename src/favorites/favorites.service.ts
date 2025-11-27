@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { Favorite } from './entities/favorite.entity';
 import { FavoritesResponseDto } from './dto/favorites.dto';
 import { TracksService } from '../tracks/tracks.service';
@@ -15,9 +15,14 @@ export class FavoritesService {
   private readonly GLOBAL_FAVORITES_ID = 'global-favs';
 
   constructor(
-    private readonly tracksService: TracksService,
-    private readonly artistsService: ArtistsService,
+    @Inject(forwardRef(() => AlbumsService))
     private readonly albumsService: AlbumsService,
+
+    @Inject(forwardRef(() => ArtistsService))
+    private readonly artistsService: ArtistsService,
+
+    @Inject(forwardRef(() => TracksService))
+    private readonly tracksService: TracksService,
   ) {
     this.favorites.set(this.GLOBAL_FAVORITES_ID, new Favorite());
   }
